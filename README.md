@@ -38,8 +38,8 @@ One setting is required: `JS_DIR`. It should be the full path to the directory w
     JS_DIR = '' # must be set
     USE_COMPILED_JS = not DEBUG
     COMPILED_JS_LOC = os.path.join(JS_DIR, 'compiled.js')
-    JS_COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS' # this is a [closure compiler flag](http://code.google.com/closure/compiler/docs/compilation_levels.html) use 'ADVANCED_OPTIMIZATIONS' if your hardcore.
+    JS_COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS' # use 'ADVANCED_OPTIMIZATIONS' if your hardcore.
     INCLUDE_JS_RECURSIVELY = True # False is handy if there is some js you don't want compiled
 
-
+See more about [Closure Compiler compilation levels](http://code.google.com/closure/compiler/docs/compilation_levels.html).
 
