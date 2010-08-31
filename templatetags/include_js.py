@@ -2,16 +2,17 @@ from uuid import uuid4
 from os.path import join
 
 from django import template
-from django.conf import settings
 
 from javascript.js import JavaScriptCompiler
 from javascript.models import JSVersion
+from javascript import settings
+
 
 register = template.Library()
 
 @register.simple_tag
 def include_js():
-    if settings.USE_COMPILED_JS:
+    if not settings.USE_COMPILED_JS:
         jsc = JavaScriptCompiler(settings.JS_DIR, 
                 compiled_loc=settings.COMPILED_JS_LOC,
                 recurse=settings.INCLUDE_JS_RECURSIVELY)

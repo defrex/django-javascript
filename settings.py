@@ -1,12 +1,12 @@
 
 import os
+from django.conf import settings
 
-from django.conf.settings import *
+USE_COMPILED_JS = getattr(settings, 'USE_COMPILED_JS', (not settings.DEBUG))
+COMPILED_JS_LOC = getattr(settings, 'COMPILED_JS_LOC', 'compiled.js')
+JS_COMPILATION_LEVEL = getattr(settings, 'JS_COMPILATION_LEVEL', 'SIMPLE_OPTIMIZATIONS')
+INCLUDE_JS_RECURSIVELY = getattr(settings, 'INCLUDE_JS_RECURSIVELY', True)
+JS_DIR = getattr(settings, 'JS_DIR', os.path.join(settings.MEDIA_ROOT, 'js'))
 
-USE_COMPILED_JS = not DEBUG
-JS_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 
-                                      '../../site_media/js/')
-COMPILED_JS_LOC = os.path.join(JS_DIR, 'compiled.js')
-JS_COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
-INCLUDE_JS_RECURSIVELY = True
-
+MEDIA_ROOT = settings.MEDIA_ROOT
+MEDIA_URL = settings.MEDIA_URL
