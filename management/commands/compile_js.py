@@ -2,10 +2,10 @@
 import os
 
 from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
 
 from javascript.js import GoogleClosureMinifier, JavaScriptCompiler, DummyMinifier
 from javascript.models import JSVersion
+from javascript import settings
 
 class Command(BaseCommand):
     help = 'Compile Javascript'

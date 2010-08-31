@@ -19,7 +19,7 @@ def include_js():
         jsc.resolve_dependencies()
         js_files = [f.split(settings.MEDIA_ROOT)[-1] for f in jsc.file_list]
     else:
-        js_files = [settings.COMPILED_JS_LOC.split(settings.MEDIA_ROOT)[-1]]
+        js_files = ['/'+settings.COMPILED_JS_LOC.split(settings.MEDIA_ROOT)[-1]]
     version = JSVersion.objects.get_or_create(pk=1)[0].version
     resp = ''
     for f in js_files: 

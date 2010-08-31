@@ -3,7 +3,7 @@ from os.path import join, isfile, abspath, isdir, dirname
 import tempfile
 from subprocess import Popen
 
-from django.conf import settings
+from javascript import settings
 
 class GoogleClosureMinifier(object):
     
