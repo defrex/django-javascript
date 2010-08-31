@@ -28,4 +28,3 @@ class Command(BaseCommand):
         js_version.save()
         
         print 'JS at version %s.' % str(js_version.version)
-        
