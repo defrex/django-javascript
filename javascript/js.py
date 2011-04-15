@@ -130,7 +130,7 @@ class JavaScriptCompiler(object):
                             break
                     if not found:
                         continue
-                
+
                 #all deps are met
                 js_files.remove(f)
                 output.append(f)

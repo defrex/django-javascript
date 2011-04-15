@@ -24,6 +24,6 @@ def include_js():
     resp = ''
     for f in js_files:
         resp += '<script src="%s?version=%s"></script>' % (
-                settings.MEDIA_URL+f[1:], str(version))
+                settings.MEDIA_URL+f, str(version))
     return resp
 
