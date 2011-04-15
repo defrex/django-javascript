@@ -68,7 +68,7 @@ class JavaScriptCompiler(object):
             for item in os.listdir(directory):
                 if isdir(join(directory, item)) and self.recurse:
                     search_dir(join(directory, item))
-                elif item.endswith('.js'):
+                elif item.endswith('.js') or item.endswith('.tmpl'):
                     if not self.output_location == join(directory, item):
                         files.append(join(directory, item))
         
@@ -113,11 +113,18 @@ class JavaScriptCompiler(object):
                 #grab the first line of the file
                 f = open(f, 'r')
                 deps = f.readline()
+                while deps.strip()[-1] == ',':
+                    deps += f.readline()
                 f.close()
                 f = f.name
                 #if the file has dependencies, see if they're resolved
-                if deps.startswith('//depends:'):
-                    dep_files = deps[10:].rstrip('\n').split(',')
+                if deps.startswith('//depends:') or
+                        deps.startswith('<!--depends:'):
+                    if deps.startswith('//depends:'):
+                        dep_files = deps[10:].rstrip('\n').split(',')
+                    else
+                        dep_files =
+                        deps[12:].rstrip().rstrip('\n').rstrip('-->').split(',')
                     found = False 
                     for dep in [dep.strip() for dep in dep_files]:
                         found = False
@@ -156,9 +163,14 @@ class JavaScriptCompiler(object):
         if self.v: print 'Concating resolved files...'
         
         concated_js = ''
+        contated_tmpl = ''
         for f in self.file_list:
-            concated_js += open(f, 'r').read() + '\n'
+            if f.split('.')[-1] == 'js':
+                concated_js += open(f, 'r').read() + '\n'
+            else:
+                concated_tmpl += open(f, 'r').read() + '\n'
         
+        self.concated_tmpl = concated_tmpl
         self.concated_js = concated_js
     
     def compile_js(self):
@@ -174,7 +186,7 @@ class JavaScriptCompiler(object):
         
         self.minifier.assign_values(self.concated_js, self.output_location)
         self.minifier.minify()
-        
+
         if self.v: print 'Compilation complete.'
 
 
