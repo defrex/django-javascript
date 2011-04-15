@@ -114,7 +114,7 @@ class JavaScriptCompiler(object):
                 f = open(f, 'r')
                 deps = f.readline()
                 while len(deps) > 1 and deps.strip()[-1] == ',':
-                    deps += f.readline()
+                    deps += f.readline().lstrip('//')
                 f.close()
                 f = f.name
                 #if the file has dependencies, see if they're resolved
