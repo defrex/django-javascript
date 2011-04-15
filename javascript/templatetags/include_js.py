@@ -17,8 +17,12 @@ def include_js():
                 compiled_loc=settings.COMPILED_JS_LOC,
                 recurse=settings.INCLUDE_JS_RECURSIVELY)
         jsc.resolve_dependencies()
-        js_files = [f.split(settings.MEDIA_ROOT)[-1] for f in jsc.file_list if
-                f.endswith('js') else f]
+        js_files = list()
+        for f in jsc.file_list:
+            if f.endswith('.js'):
+                js_files.append(f.split(settings.MEDIA_ROOT)[-1])
+            else:
+                js_files.append(f)
     else:
         js_files = ['/' %
                 os.path.join(settings.COMPILED_JS_LOC.split(settings.MEDIA_ROOT)[-1],
@@ -27,7 +31,7 @@ def include_js():
     version = JSVersion.objects.get_or_create(pk=1)[0].version
     resp = ''
     for f in js_files:
-        if r.endswith('.js'):
+        if f.endswith('.js'):
             resp += '<script src="%s?version=%s"></script>' % (
                     settings.MEDIA_URL+f, str(version))
         else:

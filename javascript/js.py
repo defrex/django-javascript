@@ -113,18 +113,16 @@ class JavaScriptCompiler(object):
                 #grab the first line of the file
                 f = open(f, 'r')
                 deps = f.readline()
-                while deps.strip()[-1] == ',':
+                while len(deps) > 1 and deps.strip()[-1] == ',':
                     deps += f.readline()
                 f.close()
                 f = f.name
                 #if the file has dependencies, see if they're resolved
-                if deps.startswith('//depends:') or
-                        deps.startswith('<!--depends:'):
+                if deps.startswith('//depends:') or deps.startswith('<!--depends:'):
                     if deps.startswith('//depends:'):
                         dep_files = deps[10:].rstrip('\n').split(',')
-                    else
-                        dep_files =
-                        deps[12:].rstrip().rstrip('\n').rstrip('-->').split(',')
+                    else:
+                        dep_files = deps[12:].rstrip().rstrip('\n').rstrip('-->').split(',')
                     found = False 
                     for dep in [dep.strip() for dep in dep_files]:
                         found = False
@@ -163,7 +161,7 @@ class JavaScriptCompiler(object):
         if self.v: print 'Concating resolved files...'
         
         concated_js = ''
-        contated_tmpl = ''
+        concated_tmpl = ''
         for f in self.file_list:
             if f.split('.')[-1] == 'js':
                 concated_js += open(f, 'r').read() + '\n'
@@ -184,7 +182,8 @@ class JavaScriptCompiler(object):
         if self.output_location is None:
             raise AttributeError, 'cannot compile without an output_location'
         
-        self.minifier.assign_values(self.concated_js, self.output_location)
+        self.minifier.assign_values(self.concated_js,
+                os.path.join(self.output_location, 'compiled.js'))
         self.minifier.minify()
 
         if self.v: print 'Compilation complete.'
