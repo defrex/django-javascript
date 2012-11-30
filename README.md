@@ -36,10 +36,12 @@ This will create 'compiled.js' (or the file at `COMPILED_JS_LOC`), and will rev 
 One setting is required: `JS_DIR`. It should be the full path to the directory where all the js files are. Here are all of the settings available though:
 
     JS_DIR = '' # must be set
-    USE_COMPILED_JS = not DEBUG
-    COMPILED_JS_LOC = os.path.join(JS_DIR, 'compiled.js')
+    # This is stripped off the file's path and replaced with STATIC_URL
+    JS_STATIC_ROOT = settings.STATIC_ROOT
+    JS_USE_COMPILED = not DEBUG
+    JS_COMPILED_LOC = os.path.join(JS_DIR, 'compiled.js')
     JS_COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS' # use 'ADVANCED_OPTIMIZATIONS' if your hardcore.
-    INCLUDE_JS_RECURSIVELY = True # False is handy if there is some js you don't want compiled
+    JS_INCLUDE_RECURSIVELY = True # False is handy if there is some js you don't want compiled
 
 See more about [Closure Compiler compilation levels](http://code.google.com/closure/compiler/docs/compilation_levels.html).
 
