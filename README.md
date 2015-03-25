@@ -23,7 +23,7 @@ This will do one of two things. If `DEBUG` is `True` (or `USE_COMPILED_JS` is `F
 
 ## Compiling
 
-You may have noticed that I've been using the term "compiled" rather then "minified". This is because when the command is run, add the js files are dependancy-resolved and concatinated into a single file, and _that_ file is minified. In my mind this is more like a compilation then a simple minification. But I guess it's just semantics.
+You may have noticed that I've been using the term "compiled" rather than "minified". This is because when the command is run, add the js files are dependancy-resolved and concatinated into a single file, and _that_ file is minified. In my mind this is more like a compilation then a simple minification. But I guess it's just semantics.
 
 When you're ready:
 
